@@ -15,10 +15,11 @@ clock = pygame.time.Clock()
 player = None
 path = []
 food = None
-
+visited = []
 
 
 def BFS():
+    global visited
     path.clear()
     queue = [(player[1], player[0])]
     visited = [[None] * int(width/bsize) for i in range(int(height/bsize))]
@@ -45,6 +46,7 @@ def BFS():
         except:
             pass
         queue.remove(curr)
+
 
 
 def changeObs(x, y, mode):
@@ -77,6 +79,10 @@ while True:
                 pygame.draw.rect(screen, (255, 255, 255), (j*bsize, i*bsize, bsize, bsize))
             else:
                 pygame.draw.rect(screen, (0, 0, 0), (j*bsize, i*bsize, bsize, bsize))
+    # for i in range(len(visited)):
+    #     for j in range(len(visited[i])):
+    #         if visited[i][j] is not None:
+    #             pygame.draw.rect(screen, (0, 100, 0), (j * bsize, i * bsize, bsize, bsize))
     for curr in path:
         pygame.draw.rect(screen, (0, 0, 255), (curr[1] * bsize, curr[0] * bsize, bsize, bsize))
     if not click:
